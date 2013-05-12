@@ -1,0 +1,59 @@
+﻿<Window x:Class="ReliakTimer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:huddled="http://schemas.huddledmasses.org/wpf"
+        Title="Reliak Timer" Height="240" Width="420" WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize" Topmost="{Binding TopMost}" Icon="Icons/bell.ico">
+    <Window.Resources>
+        <Style TargetType="{x:Type Hyperlink}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        </Style>
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <Border x:Name="pseudoToolbar" Background="WhiteSmoke" BorderThickness="0,0,0,1" BorderBrush="Gray" DockPanel.Dock="Top" Padding="3">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Worktime" ToolTip="Worktime in minutes"></Label>
+                <xctk:IntegerUpDown x:Name="numWork" ToolTip="Worktime in minutes" Value="{Binding WorkTimeInMinutes}" Increment="5" Maximum="480" Minimum="5" Width="50" />
+                <Label Content="Breaktime" ToolTip="Breaktime in minutes" Margin="10,0,0,0"></Label>
+                <xctk:IntegerUpDown x:Name="numBreak" ToolTip="Breaktime in minutes" Value="{Binding BreakTimeInMinutes}" Increment="1" Maximum="120" Minimum="0" Width="40" />
+                <TextBlock VerticalAlignment="Center" Margin="10,0,0,0"><Hyperlink Click="SettingsLink_Click">More settings...</Hyperlink></TextBlock>
+                <Border BorderThickness="1,0,0,0" BorderBrush="Gray" Margin="12,0,0,0">
+                    <TextBlock VerticalAlignment="Center" Margin="8,0,0,0"><Hyperlink Click="AboutLink_Click">About...</Hyperlink></TextBlock>
+                </Border>
+            </StackPanel>
+        </Border>
+        <Border x:Name="pnlStarterInfo" BorderThickness="0,1,0,0" BorderBrush="Gray" Background="WhiteSmoke" DockPanel.Dock="Bottom" Visibility="Collapsed">
+            <Grid Margin="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="16" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock FontWeight="Bold" Grid.Row="0" Grid.Column="0">Info for starters (<Hyperlink Click="DontShowStarterInfoAgain_Click">Don't show this again</Hyperlink>)</TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="0">- Click left on the above time panel to start and stop the timer</TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="0">- Click right on the above time panel to open an advanced context menu</TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="0" TextWrapping="WrapWithOverflow">- Use the mousewheel over the time panel to quickly change the size of the displayed text</TextBlock>
+            </Grid>
+        </Border>
+        <Border x:Name="timerArea" PreviewMouseDown="TimerArea_MouseDown" PreviewMouseWheel="timerArea_PreviewMouseWheel">
+            <Label x:Name="lblMain" FontSize="{Binding TextFontSize}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{Binding TextFontName}" Content="Click to start work">
+            </Label>
+            <Border.ContextMenu>
+                <ContextMenu Opened="ContextMenu_Opened" Closed="ContextMenu_Closed">
+                    <MenuItem Header="Start work" Click="MenuItemStartWork_Click" />
+                    <MenuItem Header="Start break" Click="MenuItemStartBreak_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Compact mode" IsCheckable="True" IsChecked="{Binding UseCompactMode}" Click="MenuItemUseCompactMode_Click"/>
+                    <Separator x:Name="ctxSep" Visibility="Collapsed"/>
+                    <MenuItem x:Name="ctxSettings" Header="Settings..." Visibility="Collapsed" Click="ctxSettings_Click"/>
+                    <MenuItem x:Name="ctxAbout" Header="About..." Visibility="Collapsed" Click="ctxAbout_Click"/>
+                </ContextMenu>
+            </Border.ContextMenu>
+        </Border>
+    </DockPanel>
+</Window>

@@ -1,0 +1,17 @@
+The code under src contains code by Daniel Kailer <coding@reliak.de>.
+It is licensed under the Apache License 2.0 (see COPYING).
+
+External projects are by their various authors:
+- ./ext/ExtendedWpfToolkit
+  - License: Ms-PL
+  - Usage: Provided some WPF controls (like the numeric Up-Down text box or a color picker)
+  - Website: http://wpftoolkit.codeplex.com/
+
+- ./ext/PoshConsole
+  - License: Ms-PL
+  - Usage: Provided the feature to snap the window to the edges of the desktop
+  - Website: http://poshconsole.codeplex.com/
+
+
+The program icon of Reliak Timer stems from Nahas M.A.:
+http://www.iconfinder.com/icondetails/66972/48/bell_icon

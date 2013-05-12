@@ -1,0 +1,5 @@
+*.suo
+*.user
+bin/MuLib/
+src/bin/
+src/obj/
